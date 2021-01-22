@@ -1,0 +1,16 @@
+{% extends 'blog/base.html' %}
+
+{% block title %} Категории {% endblock %}
+
+{% block content %}
+{% include 'include_block_html/head_page.html' %}
+    <p>Категория</p>
+
+{% for post in posts %}
+<p>
+<a href = "{{ post.get_absolute_url }}">{{ post.title }}</a>
+    </p>
+{% endfor %}
+
+{% include "pagination.html" with page=posts %}
+{% endblock %}

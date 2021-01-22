@@ -1,0 +1,20 @@
+{% extends "blog/base.html" %}
+
+{% block title %}
+Список статей
+{% endblock %}
+{% block content %}
+
+{% include 'include_block_html/head_page.html' %}
+
+<h1> Список статей </h1>
+<div>
+{% for post in post %}
+<p><a href = "{{ post.get_absolute_url }}">{{ post.title }}</a></p>
+<p class="author">{{ post.author }}</p>
+{% endfor %}
+</div>
+
+
+{% include "pagination.html" with page=post %}
+{% endblock %}

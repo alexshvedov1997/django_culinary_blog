@@ -1,0 +1,22 @@
+{% extends 'blog/base.html' %}
+
+{% block title %} Главная страница {% endblock %}
+
+{% block content %}
+<div>
+    {% if request.user.is_authenticated %}
+         <a href="{% url 'logout' %}">Выйти</a>
+    {% else %}
+    <a href="{% url 'login' %}">Войти</a>
+    {% endif %}
+<ul>
+<li><a href="{% url 'blog:list' %}">Список статей</a></li>
+<li>Список категорий</li>
+<ul>
+    {% for cat in categories %}
+    <li><a href = "{{ cat.get_absolute_url }}"> {{ cat.category_name }}</a></li>
+    {% endfor %}
+</ul>
+</ul>
+</div>
+{% endblock %}

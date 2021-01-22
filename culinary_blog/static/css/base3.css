@@ -1,0 +1,29 @@
+body{
+background: #E0FFFF;
+}
+
+div.post_body{
+    font-size: 20px;
+
+}
+
+div.post_body p.title_post{
+
+    font-size: 30px;
+    text-align: center;
+
+}
+
+div p.author{
+        font-size : 15px;
+        font-style: italic;
+        font-weight: 200;
+        color: #696969;
+        text-align: center;
+}
+
+.main_menu{
+margin: 10px 100px 1000px 300px;
+border: 1px solid #000;
+
+}

@@ -1,0 +1,14 @@
+{% extends "blog/base.html" %}
+
+{% block title %} {{ post.title }} {% endblock %}
+
+{% block content %}
+{% include 'include_block_html/head_page.html' %}
+
+<div class="post_body">
+<p class="title_post">{{ post.title }}</p>
+<p class="post_text">{{ post.body }}</p>
+    <p class="author">{{ post.author }}</p>
+    </div>
+
+{% endblock %}
