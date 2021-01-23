@@ -3,6 +3,7 @@ from .models import CulinaryPost, Category
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 from django.core.paginator import  Paginator, EmptyPage, PageNotAnInteger
+from .forms import  CommentForm
 # Create your views here.
 
 
@@ -39,4 +40,29 @@ def get_post_of_category(request, name):
 def post_detail(request, post_id, name):
     #post = get_object_or_404(CulinaryPost, id = post_id, slug = name)
     post = CulinaryPost.objects.filter(id = post_id).first()
-    return render(request,"blog/post/culinary_post.html", {"post":post} )
+    #comment = post.comments.all()
+    all_object = post.comments.all()
+    object_list = post.comments.all()
+    paginator = Paginator(object_list, 1)
+    page = request.GET.get('page')
+    try:
+        comment = paginator.page(page)
+    except PageNotAnInteger:
+        comment = paginator.page(1)
+    except EmptyPage:
+        comment= paginator.page(paginator.num_pages)
+
+    new_comment = None
+    if request.method == 'POST':
+        comment_form = CommentForm(data = request.POST)
+        if comment_form.is_valid():
+            new_comment = comment_form.save(commit= False)
+            new_comment.post = post
+            new_comment.name = request.user
+            new_comment.save()
+    else:
+        comment_form = CommentForm()
+    return render(request,"blog/post/culinary_post.html", {"post":post, 'comments':comment,
+                                                           'new_comment': new_comment,
+                                                           'comment_form':comment_form, 'page':page,
+                                                           'all_object':all_object} )

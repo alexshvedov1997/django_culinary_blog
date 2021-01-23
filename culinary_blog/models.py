@@ -31,6 +31,14 @@ class CulinaryPost(models.Model):
     def get_absolute_url(self):
         return  reverse('blog:post_detail', args=[self.id, self.slug,])
 
+class Comment(models.Model):
+    post = models.ForeignKey(CulinaryPost, on_delete=models.CASCADE, related_name='comments')
+    name = models.ForeignKey(User, on_delete=models.CASCADE, related_name='author_name')
+    body = models.TextField()
+    publish = models.DateTimeField(default=timezone.now)
+
+    class Meta:
+        ordering = ('-publish',)
 
 
 # Create your models here.

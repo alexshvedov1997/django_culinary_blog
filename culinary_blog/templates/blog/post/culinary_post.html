@@ -11,4 +11,28 @@
     <p class="author">{{ post.author }}</p>
     </div>
 
+{% if request.user.is_authenticated %}
+<p>Введите коментарий</p>
+<form action="." method="post">
+    {{ comment_form.as_p }}
+    {% csrf_token %}
+    <input type="submit" value="Добавить коментарий">
+</form>
+{% else %}
+<p>Чтобы оставить коментарий войдите в учетную запись</p>
+{% endif %}
+<p></p>
+<p>Список коментариев</p>
+{% with all_object.count as total_count %}
+<h5>Общее число комментариев {{ total_count }}.</h5>
+{% endwith %}
+
+{% for comment in comments %}
+<p> Имя пользователя: {{ comment.name }} <span>Дата публикации {{ comment.publish }}</span></p>
+
+<p>{{ comment.body }}</p>
+{% empty %}
+    <p>Список коментариев пуст</p>
+{%  endfor %}
+{% include "pagination.html" with page=comments %}
 {% endblock %}

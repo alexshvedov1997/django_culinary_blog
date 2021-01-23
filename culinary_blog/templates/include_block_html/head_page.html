@@ -2,6 +2,7 @@
 <p><a href="{% url 'blog:main_pg' %}">На главную страницу</a></p>
 {% if request.user.is_authenticated %}
         <p> <a href="{% url 'logout' %}">Выйти</a></p>
+    <p><a href="#">Создать запись в блоге</a></p>
     {% else %}
    <p> <a href="{% url 'login' %}">Войти</a></p>
     {% endif %}
