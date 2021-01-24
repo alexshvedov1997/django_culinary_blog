@@ -5,7 +5,7 @@ from django.urls import reverse
 
 
 class Category(models.Model):
-    category_name = models.CharField(max_length=100)
+    category_name = models.CharField(max_length=100, verbose_name="Категория")
     slug = models.SlugField(max_length=100, unique=True)
 
     class Meta:
@@ -17,13 +17,13 @@ class Category(models.Model):
 
 
 class CulinaryPost(models.Model):
-    title = models.CharField(max_length=250)
-    body = models.TextField()
-    author = models.ForeignKey(User, on_delete = models.CASCADE, related_name = 'culinary_post')
-    publish = models.DateTimeField(default=timezone.now)
+    title = models.CharField(max_length=250, verbose_name="Заголовок")
+    body = models.TextField(verbose_name="Текст")
+    author = models.ForeignKey(User, on_delete = models.CASCADE, related_name = 'culinary_post', verbose_name="Автор")
+    publish = models.DateTimeField(default=timezone.now, verbose_name="Дата публикации")
     slug = models.SlugField(max_length=250, unique_for_date='publish')
-    culinary_category = models.ForeignKey(Category, on_delete=models.CASCADE, related_name="categoryName")
-    photo = models.ImageField(upload_to='blog_photo', blank=True)
+    culinary_category = models.ForeignKey(Category, on_delete=models.CASCADE, related_name="categoryName", verbose_name="Категория")
+    photo = models.ImageField(upload_to='blog_photo/', blank=True, verbose_name="Картинка")
 
     class Meta:
         ordering = ('-publish',)
@@ -33,9 +33,9 @@ class CulinaryPost(models.Model):
 
 class Comment(models.Model):
     post = models.ForeignKey(CulinaryPost, on_delete=models.CASCADE, related_name='comments')
-    name = models.ForeignKey(User, on_delete=models.CASCADE, related_name='author_name')
-    body = models.TextField()
-    publish = models.DateTimeField(default=timezone.now)
+    name = models.ForeignKey(User, on_delete=models.CASCADE, related_name='author_name', verbose_name="Автор")
+    body = models.TextField(verbose_name="Текст")
+    publish = models.DateTimeField(default=timezone.now, verbose_name="Дата публикации")
 
     class Meta:
         ordering = ('-publish',)

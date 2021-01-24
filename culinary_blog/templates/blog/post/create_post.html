@@ -1,0 +1,13 @@
+{% extends "blog/base.html" %}
+
+{% block title %}
+Создание записи в блоге
+{% endblock %}
+{% block content %}
+<h3>Содание записи в блоге</h3>
+<form action="." method="post">
+    {{ post_form.as_p }}
+    {% csrf_token %}
+    <input type="submit" value="Создать запись">
+</form>
+{% endblock %}

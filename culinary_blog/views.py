@@ -3,7 +3,9 @@ from .models import CulinaryPost, Category
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 from django.core.paginator import  Paginator, EmptyPage, PageNotAnInteger
-from .forms import  CommentForm
+from .forms import  CommentForm, CulinaryPostForm, SearchForm
+from django.contrib.postgres.search import  SearchVector
+
 # Create your views here.
 
 
@@ -66,3 +68,31 @@ def post_detail(request, post_id, name):
                                                            'new_comment': new_comment,
                                                            'comment_form':comment_form, 'page':page,
                                                            'all_object':all_object} )
+
+def create_post(request):
+    categories = Category.objects.all()
+    new_post= None
+    if request.method == 'POST':
+        post_form = CulinaryPostForm(data = request.POST)
+        if post_form.is_valid():
+            new_post = post_form.save(commit = False)
+            new_post.author = request.user
+            new_post.save()
+            return render(request,'blog/main_pg/main_menu.html', {"categories":categories})
+    else:
+        post_form = CulinaryPostForm()
+    return render(request, 'blog/post/create_post.html', {'new_post':new_post, 'post_form':post_form})
+
+def post_search(request):
+    form = SearchForm()
+    query = None
+    results = []
+    if 'query' in request.GET:
+        form = SearchForm(request.GET)
+    if form.is_valid():
+        query = form.cleaned_data['query']
+        results = CulinaryPost.objects.annotate(search = SearchVector('title','body'),).filter(search = query)
+    return render(request,"blog/post/search.html", {'form':form,'query':query,'results':results})
+
+
+

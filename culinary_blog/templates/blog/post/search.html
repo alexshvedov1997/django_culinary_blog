@@ -1,0 +1,27 @@
+{% extends 'blog/base.html' %}
+
+{% block title %} Поиск записей {% endblock %}
+
+{% block content %}
+{% include 'include_block_html/head_page.html' %}
+{% if query %}
+<p>Посты содержащие слово: " {{ query }} "</p>
+{% with results.count as total_count %}
+<p>Общее число найденых постов {{ total_count }}</p>
+{% for post in results %}
+<p><a href="{{ post.get_absolute_url }}">{{ post.title }}</a></p>
+<p>{{ post.author }}</p>
+
+{% empty %}
+<p>Записей не найдено</p>
+{% endfor  %}
+{% endwith %}
+
+{% else %}
+<p>Поиск</p>
+ <form action="." method="get">
+     {{ form.as_p }}
+     <input type="submit" value="Поиск">
+ </form>
+{% endif %}
+{% endblock %}

@@ -7,6 +7,9 @@
 
 <div class="post_body">
 <p class="title_post">{{ post.title }}</p>
+    {% if post.photo %}
+    <img src="{{ post.photo.url }}">
+    {% endif %}
 <p class="post_text">{{ post.body }}</p>
     <p class="author">{{ post.author }}</p>
     </div>
