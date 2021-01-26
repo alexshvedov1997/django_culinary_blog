@@ -2,9 +2,11 @@ from django.shortcuts import render, get_object_or_404
 from .models import CulinaryPost, Category
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
-from django.core.paginator import  Paginator, EmptyPage, PageNotAnInteger
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from .forms import  CommentForm, CulinaryPostForm, SearchForm
-from django.contrib.postgres.search import  SearchVector
+from django.contrib.postgres.search import SearchVector
+from taggit.models import Tag
+
 
 # Create your views here.
 
@@ -13,9 +15,14 @@ def main_page(request):
     categories = Category.objects.all()
     return render(request,'blog/main_pg/main_menu.html', {"categories":categories})
 
-def post_list(request):
+def post_list(request, tag_slug =None):
     object_all = CulinaryPost.objects.all()
-    paginator = Paginator(object_all,1)
+    tag = None
+    if tag_slug:
+        tag = get_object_or_404(Tag,slug = tag_slug)
+        object_all = object_all.filter(tags__in = [tag])
+
+    paginator = Paginator(object_all,2)
     page = request.GET.get('page')
     try:
         post = paginator.page(page)
@@ -23,7 +30,7 @@ def post_list(request):
         post = paginator.page(paginator.num_pages)
     except PageNotAnInteger:
         post = paginator.page(1)
-    return render(request, "blog/post/list.html", {"post":post, "page":page})
+    return render(request, "blog/post/list.html", {"post":post, "page":page, 'tag':tag})
 
 def get_post_of_category(request, name):
     cat = Category.objects.filter(slug = name).first()

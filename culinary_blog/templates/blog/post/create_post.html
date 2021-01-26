@@ -4,6 +4,7 @@
 Создание записи в блоге
 {% endblock %}
 {% block content %}
+{% include 'include_block_html/head_page.html' %}
 <h3>Содание записи в блоге</h3>
 <form action="." method="post">
     {{ post_form.as_p }}

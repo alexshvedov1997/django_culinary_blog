@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% block title %}
+Успешная регистрация
+{% endblock %}
+
+{% block content %}
+<p><a href="{% url 'blog:main_pg' %}">На главную страницу</a></p>
+<p>Добро пожаловать {{ new_user.name }}</p>
+<p>Пользователь успешно создан. Теперь вы можете войти в учетную запись</p>
+<p><a href="{% url 'login' %}">Войти в четную запись</a></p>
+{% endblock %}

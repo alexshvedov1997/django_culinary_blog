@@ -12,6 +12,20 @@
 {% for post in post %}
 <p><a href = "{{ post.get_absolute_url }}">{{ post.title }}</a></p>
 <p class="author">{{ post.author }}</p>
+
+<p class="tag">
+
+    {% for tag in post.tags.all %}
+    {% if forloop.counter == 1 %}
+    Теги:
+      {% endif %}
+    <a href="{% url 'blog:list_by_tag' tag.slug %}">{{ tag.name }}</a>
+    {% if not forloop.last %}, {% endif %}
+    {% empty %}
+    <p>Теги отсутствуют</p>
+    {% endfor %}
+
+</p>
 {% endfor %}
 </div>
 

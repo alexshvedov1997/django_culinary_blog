@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.utils import timezone
 from django.urls import reverse
+from taggit.managers import TaggableManager
 
 
 class Category(models.Model):
@@ -24,6 +25,7 @@ class CulinaryPost(models.Model):
     slug = models.SlugField(max_length=250, unique_for_date='publish')
     culinary_category = models.ForeignKey(Category, on_delete=models.CASCADE, related_name="categoryName", verbose_name="Категория")
     photo = models.ImageField(upload_to='blog_photo/', blank=True, verbose_name="Картинка")
+    tags = TaggableManager(blank=True)
 
     class Meta:
         ordering = ('-publish',)

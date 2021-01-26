@@ -3,6 +3,7 @@
 {% if request.user.is_authenticated %}
         <p> <a href="{% url 'logout' %}">Выйти</a></p>
     <p><a href=" {% url 'blog:create_post' %}">Создать запись в блоге</a></p>
+<p>Добро пожаловать {{ request.user.first_name }}</p>
     {% else %}
    <p> <a href="{% url 'login' %}">Войти</a></p>
     {% endif %}
