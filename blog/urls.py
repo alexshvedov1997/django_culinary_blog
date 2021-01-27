@@ -22,6 +22,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('blog/', include('culinary_blog.urls', namespace='blog')),
     path('account/', include('account.urls')),
+  path('api/',include('culinary_blog.api.urls', namespace = 'api'))
 ]
 
 if settings.DEBUG:
