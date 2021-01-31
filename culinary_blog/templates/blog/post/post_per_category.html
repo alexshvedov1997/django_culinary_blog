@@ -3,7 +3,10 @@
 {% block title %} Категории {% endblock %}
 
 {% block content %}
+
 {% include 'include_block_html/head_page.html' %}
+
+<div class="body_text">
     <p>Категория</p>
 
 {% for post in posts %}
@@ -13,5 +16,5 @@
 {% endfor %}
 
 {% include "pagination.html" with page=posts %}
-
+</div>
 {% endblock %}

@@ -4,7 +4,9 @@
 
 {% block content %}
 {% include 'include_block_html/head_page.html' %}
+<div class="body_text">
 {% if query %}
+
 <p>Посты содержащие слово: " {{ query }} "</p>
 {% with results.count as total_count %}
 <p>Общее число найденых постов {{ total_count }}</p>
@@ -24,4 +26,5 @@
      <input type="submit" value="Поиск">
  </form>
 {% endif %}
+    </div>
 {% endblock %}

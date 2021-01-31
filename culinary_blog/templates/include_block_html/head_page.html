@@ -1,9 +1,11 @@
-
-<p><a href="{% url 'blog:main_pg' %}">На главную страницу</a></p>
+<ul id="header">
+<li><a href="{% url 'blog:main_pg' %}">На главную страницу</a></li>
 {% if request.user.is_authenticated %}
-        <p> <a href="{% url 'logout' %}">Выйти</a></p>
-    <p><a href=" {% url 'blog:create_post' %}">Создать запись в блоге</a></p>
-<p>Добро пожаловать {{ request.user.first_name }}</p>
+        <li> <a href="{% url 'logout' %}">Выйти</a></li>
+    <li><a href=" {% url 'blog:create_post' %}">Создать запись в блоге</a></li>
+<li>Добро пожаловать {{ request.user.username  }}</li>
     {% else %}
-   <p> <a href="{% url 'login' %}">Войти</a></p>
+   <li> <a href="{% url 'login' %}">Войти</a></li>
+    <li><a href="{% url  'register_user' %}">Зарегестрироваться</a></li>
     {% endif %}
+    </ul>

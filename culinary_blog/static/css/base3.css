@@ -1,5 +1,66 @@
+#header{
+top: 0px;
+
+width: 100%;
+height: 50px;
+background-color: #E6E6FA;
+position: absolute;
+
+
+}
+
+#header li{
+display: inline;
+border: 1px solid black;
+padding: 3px;
+margin: 20px;
+}
+
+#navbar{
+position: fixed;
+top: 60px;
+margin: 0px;
+padding: 0px;
+}
+
+
+
+#navbar ul ul{ display:none;}
+#navbar ul li:hover > ul {
+display:block;
+}
+
+
+div.body_text{
+position: absolute;
+top: 60px;
+margin: 0px;
+padding: 0px;
+overflow-y: scroll;
+left: 10%;
+border: 1px solid black;
+width: 80%;
+}
+
+div.body_text h1{
+text-align: center;
+}
+
+img.center {
+ display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+div.body_text p.post_text{
+    text-indent: 60px;
+    font-size: 20px;
+}
+
+
 body{
 background: #E0FFFF;
+overflow-y: scroll
 }
 
 div.post_body{
@@ -14,6 +75,7 @@ div.post_body p.title_post{
 
 }
 
+
 div p.author{
         font-size : 15px;
         font-style: italic;
@@ -25,5 +87,6 @@ div p.author{
 .main_menu{
 margin: 10px 100px 1000px 300px;
 border: 1px solid #000;
-
 }
+
+

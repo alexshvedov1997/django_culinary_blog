@@ -5,14 +5,17 @@
 {% block content %}
 {% include 'include_block_html/head_page.html' %}
 
-<div class="post_body">
-<p class="title_post">{{ post.title }}</p>
+<div class="body_text">
+
+    <h1>{{ post.title }}</h1>
+
     {% if post.photo %}
-    <img src="{{ post.photo.url }}">
+   <img src="{{ post.photo.url }}" class="center">
     {% endif %}
+
 <p class="post_text">{{ post.body }}</p>
-    <p class="author">{{ post.author }}</p>
-    </div>
+    <p class="author">Автор {{ post.author }} дата публикации {{ post.publish }}</p>
+
 
 {% if request.user.is_authenticated %}
 <p>Введите коментарий</p>
@@ -38,4 +41,5 @@
     <p>Список коментариев пуст</p>
 {%  endfor %}
 {% include "pagination.html" with page=comments %}
+    </div>
 {% endblock %}

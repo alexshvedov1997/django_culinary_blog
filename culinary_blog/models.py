@@ -17,6 +17,7 @@ class Category(models.Model):
 
 
 
+
 class CulinaryPost(models.Model):
     title = models.CharField(max_length=250, verbose_name="Заголовок")
     body = models.TextField(verbose_name="Текст")
